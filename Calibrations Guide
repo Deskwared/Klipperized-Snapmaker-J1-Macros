@@ -1,0 +1,63 @@
+# Automated IDEX Calibration Workflow
+**These steps can be completed in any order.  Be sure you have loaded the KlipperScreen config and fully rebooted your system before proceeding.**
+Your Snapmaker J1s IDEX configuration has been fundamentally rewritten to seamlessly utilize electrical continuity datum pads built into the machine. Instead of manual paper-dragging tests, the printer dynamically polls for high-precision physical closures to perfectly align your Z-Offsets, Bed Tramming, and XY Toolhead offsets. 
+This guide breaks down exactly how to operate the new unified testing GUI found in your touchscreen under **"Calibrations"**.
+---
+
+## Step 1: Global Preparation (MANDATORY)
+Before engaging in **any** calibration logic, the physical environment must be completely scrubbed. Cooled plastic isolated on the tip of the nozzle will instantly block the electrical circuits from triggering when tapping the datum pads!
+**Workflow:**
+1. Navigate to **Calibrations**.
+2. Tap **1. Calibrations Prep**.
+3. The printer will pre-heat the bed and both nozzles.
+4. It will physically move both toolheads cleanly to the left and right center layout. 
+5. **ACTION REQUIRED**: Take a brass wire brush and aggressively scrub BOTH nozzles completely clean of any plastic ooze. 
+*Once the nozzles are fully clean, immediately proceed to one of the following testing modules in the Sub-Menu while the machine is hot.*
+---
+ 
+## Step 2: Bed Tramming (Leveling)
+This process automatically guides you through adjusting the 3 built-in bed screws using real-time polling to ensure maximum horizontal stability. The probing process is completed in two stages, a coarse movement of .05 and a fine movement of .01.  One round of probing consists of completion of both stages.
+**Workflow:**
+1. Open the **Bed Tramming** menu. 
+2. Tap **2. Auto-Probe Bed**.
+3. The printer will drop the nozzle to the fixed rear datum pad and record it as your exact "Baseline".
+4. It will then sweep to the physical **Left Pad** and enter a small physical jumping loop. 
+5. Look at your KlipperScreen interface. You will see a readout similar to: `Pad Z: -3.05  Ref: -3.00`
+6. **ACTION REQUIRED**: Reach under the bed and mechanically twist the Left bed screw.  If your left corner is higher than the baseline/rear pad the displayed number will be smaller than the baseline (e.g. Pad Z: -3.05  Ref: -3.00`).  Turn the bed adjustment screw counter-clockwise to pull the corner down.  If your bed is lower than the baseline, your number will be larger (e.g. Pad Z: -3.05  Ref: -2.35`).  Turn the screw clockwise to raise the corner.
+   - Watch the numbers dynamically update on the screen as the printer repeatedly touches the pad. 
+   - You want your `Pad Z` to perfectly match your `Ref`.  Once you have it right, don’t touch anything else.
+7. Once the algorithm detects that the values match `2` times in a row (that is, you have not made any changes), it automatically confirms stability and sweeps to the **Right Pad**. 
+8. Repeat the mechanical twisting process for the right knob.  Again, once you have it set, don’t touch anything.  The printer will probe two times.  If both numbers are identical, the printer natively terminates the loop and parks itself.
+---
+ 
+## Step 3: Z-Offset Calibration
+This module digitally aligns the vertical length of the secondary toolhead (T1 - Right) to precisely match the absolute distance of the primary toolhead (T0 - Left).  Remember to do the Calibrations Prep first, as needed.
+**Workflow:**
+PRIOR TO RUNNING THIS CALIBRATION, BE SURE TO LOOSEN THE NOZZLE ADJUSTMENT SCREWS ON THE RIGHT TOOLHEAD.
+1. Open the **Z-Offset** menu.
+2. Tap **2. Auto-Probe Z**.
+3. T0 (Left) will move to the right, tap the datum pad, save its coordinate mathematically as the baseline, and move away.
+4. T1 (Right) will move into position over the exact same pad and begin the physical polling loop.
+5. As it bounces, watch your KlipperScreen. You will see something like: `Pad Z: -2.90  Ref: -3.00`.
+6. **ACTION REQUIRED**: Using the physical mechanical height dial wheel physically embedded into the Right toolhead, twist the dial to raise or lower the nozzle height.
+7. Keep tuning the wheel until the graphic numbers match identically.
+8. Just as with Bed Tramming, once the algorithm hits `2` identical reads, it stops probing.  It will move T1 safely upward to `Z=100` and suspends itself there so you can tighten the printhead screws. 
+9. **ACTION REQUIRED**: Tap **3. Z Calibration Complete** in the UI. 
+   - The printer finalizes the mathematical saves into Klipper's persistent variables, physically retracts T1, parks both heads out of bounds, and kills all thermal heaters. 
+---
+ 
+## Step 4: XY Offset Calibration
+This algorithm guarantees that when Klipper requests T1 to drop to an XY coordinate natively defined by T0, it is flawlessly vertically stacked without horizontal ghosting.  Remember to do the Calibrations Prep first, as needed.
+**Workflow:**
+1. Open the **XY Offsets** menu. 
+2. Tap **2. Auto-Probe XY**.
+3. **Wait.** The printer operates 100% autonomously here. This will take a few minutes.
+   - It leverages a specialized 3-stage adaptive horizontal bumping loop:
+   - **Coarse Pass (`0.2mm`)**: Rapid horizontal probing to accurately establish the approximate bounds of the cavity slot.
+   - **Fine Pass (`0.05mm`)**: A tighter approach algorithm calculating sub-measurements.
+   - **Ultra-Fine Pass (`0.01mm`)**: Sub-micron locking of the exact physical cavity wall. (It may look like your printhead is immobile because the movement is extremely small.  Just be patient.)
+4. It repeats this pattern for all four walls symmetrically against T0, then physically tags in T1 and repeats the pattern. 
+5. When complete, Klipper injects the calculated differences natively into `[save_variables]` and overrides standard IDEX `SET_GCODE_OFFSET` variables to ensure slicer toolchanges never wipe them out. 
+6. The printer homes and turns off heaters.
+
+
