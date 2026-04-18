@@ -23,7 +23,7 @@ This process automatically guides you through adjusting the 3 built-in bed screw
 3. The printer will drop the nozzle to the fixed rear datum pad and record it as your exact "Baseline".
 4. It will then sweep to the physical **Left Pad** and enter a small physical jumping loop. 
 5. Look at your KlipperScreen interface. You will see a readout similar to: `Pad Z: -3.05  Ref: -3.00`
-6. **ACTION REQUIRED**: Reach under the bed and mechanically twist the Left bed screw.  If your left corner is higher than the baseline/rear pad the displayed number will be smaller than the baseline (e.g. Pad Z: -3.05  Ref: -3.00`).  Turn the bed adjustment screw counter-clockwise to pull the corner down.  If your bed is lower than the baseline, your number will be larger (e.g. Pad Z: -3.05  Ref: -2.35`).  Turn the screw clockwise to raise the corner.
+6. **ACTION REQUIRED**: Reach under the bed and mechanically twist the Left bed screw.  If your left corner is higher than the baseline/rear pad the displayed number will be smaller than the baseline (e.g. Pad Z: -3.05  Ref: -3.62`).  Turn the bed adjustment screw counter-clockwise to pull the corner down.  If your bed is lower than the baseline, your number will be larger (e.g. Pad Z: -3.05  Ref: -2.35`).  Turn the screw clockwise to raise the corner.
    - Watch the numbers dynamically update on the screen as the printer repeatedly touches the pad. 
    - You want your `Pad Z` to perfectly match your `Ref`.  Once you have it right, don’t touch anything else.
 7. Once the algorithm detects that the values match `2` times in a row (that is, you have not made any changes), it automatically confirms stability and sweeps to the **Right Pad**. 
