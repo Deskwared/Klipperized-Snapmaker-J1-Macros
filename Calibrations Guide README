@@ -43,7 +43,7 @@ PRIOR TO RUNNING THIS CALIBRATION, BE SURE TO LOOSEN THE NOZZLE ADJUSTMENT SCREW
 7. Keep tuning the wheel until the graphic numbers match identically.
 8. Just as with Bed Tramming, once the algorithm hits `2` identical reads, it stops probing.  It will move T1 safely upward to `Z=100` and suspends itself there so you can tighten the printhead screws. 
 9. **ACTION REQUIRED**: Tap **3. Z Calibration Complete** in the UI. 
-   - The printer finalizes the mathematical saves into Klipper's persistent variables, physically retracts T1, parks both heads out of bounds, and kills all thermal heaters. 
+   - The printer finalizes the math, saves into Klipper's persistent variables, physically retracts T1, parks both heads out of bounds, and kills all thermal heaters. 
 ---
  
 ## Step 4: XY Offset Calibration
