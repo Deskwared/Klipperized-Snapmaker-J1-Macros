@@ -7,6 +7,7 @@ CAO: 26 April '26 @ 1300 USA Central Time.  (As improvements or changes are made
 - Fixed error where manually adjusted z-offset was not saved/recalled properly.
 - Incorporated prime lines into Orca start code.
 - Troubleshot the issue with stealthchopper missing steps on the Y axis.  (Be sure to reduce acceleration, in Orca, to something less than 4000).
+- Added example of mandatory file tree (configure your files as the example shows to ensure full functionality).
 
 Big thank you to Franck FG for the foundation upon which many of these are built.  Some macros may still contain a bit of French! Find his repo here: https://github.com/FranckFG62/J1s-Klipper-Macros
 Another huge "thank you" to Evil Azrael without whom none of this would have been possible.  Check out his instructions and links here: https://www.reddit.com/r/KlipperOnJ1/comments/1rwouoa/download_installation_guide/
