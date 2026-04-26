@@ -1,0 +1,6 @@
+: Paste below into Printer Settings → Machine G-code → Change filament G-code
+
+; ─────────────────────────────────────────────────────────────
+; Snapmaker J1s IDEX — Tool Change
+; ─────────────────────────────────────────────────────────────
+T{next_extruder}

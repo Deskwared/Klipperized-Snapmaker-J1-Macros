@@ -1,0 +1,93 @@
+; ─────────────────────────────────────────────────────────────
+; Snapmaker J1s IDEX — Start Print
+; ─────────────────────────────────────────────────────────────
+; Printer : {printer_preset}
+; Profile : {print_preset}
+; Plate   : {plate_name}
+; Initial : T{initial_extruder}
+; T0 used : {is_extruder_used[0]}  T1 used : {is_extruder_used[1]}
+
+; ── INVOKE KLIPPER START_PRINT ──────────────────────────────
+
+{if plate_name =~ /.*[Cc]opy.*/}
+; ▸ COPY MODE — T1 mirrors T0 temperature
+START_PRINT BED_TEMP={first_layer_bed_temperature[0]} T0_TEMP={nozzle_temperature_initial_layer[0]} T1_TEMP={nozzle_temperature_initial_layer[0]} START_EXTRUDER=0 PLATE=copy MAX_X={first_layer_print_max[0]}
+{elsif plate_name =~ /.*[Mm]irr.*/}
+; ▸ MIRROR MODE — T1 mirrors T0 temperature
+START_PRINT BED_TEMP={first_layer_bed_temperature[0]} T0_TEMP={nozzle_temperature_initial_layer[0]} T1_TEMP={nozzle_temperature_initial_layer[0]} START_EXTRUDER=0 PLATE=mirror MAX_X={first_layer_print_max[0]}
+{else}
+; ▸ PRIMARY MODE — individual extruder temperatures
+START_PRINT BED_TEMP={first_layer_bed_temperature[initial_extruder]} T0_TEMP={if is_extruder_used[0]}{nozzle_temperature_initial_layer[0]}{else}0{endif} T1_TEMP={if is_extruder_used[1]}{nozzle_temperature_initial_layer[1]}{else}0{endif} START_EXTRUDER={initial_extruder} PLATE=default MAX_X={first_layer_print_max[0]}
+{endif}
+
+; ── PURGE LINES ─────────────────────────────────────────────
+
+{if plate_name =~ /.*[Cc]opy.*|.*[Mm]irr.*/}
+; COPY/MIRROR — both heads move in unison, single purge sequence
+G1 Z0.5 F600
+G1 X18 Y20 F6000
+G92 E0
+G1 E5 F300              ; Prime blob
+G1 Y172 E9 F2000        ; Purge line 1
+G1 X18.5 F6000           ; Shift over
+G1 Y23 E9 F2000         ; Purge line 2
+G92 E0
+G1 E-0.8 F1800          ; Retract
+G1 Z2 F600              ; Lift
+; No parking necessary for Copy/Mirror Mode
+
+{elsif is_extruder_used[0] and is_extruder_used[1]}
+; DUAL-COLOR — simultaneous purge using temporary Mirror mode
+IDEX_MIRROR
+G1 Z0.5 F600
+G1 X18 Y20 F6000
+G92 E0
+G1 E5 F300              ; Prime blob
+G1 Y172 E9 F2000        ; Purge line 1
+G1 X18.5 F6000          ; Shift over
+G1 Y23 E9 F2000         ; Purge line 2
+G92 E0
+G1 E-0.8 F1800          ; Retract
+G1 Z2 F600              ; Lift
+IDEX_PRIMARY
+{if initial_extruder == 0}
+PARK_RIGHT_EXTRUDER
+{else}
+PARK_LEFT_EXTRUDER
+{endif}
+
+{elsif is_extruder_used[0]}
+; ── T0 PURGE (left edge) ──
+T0
+G1 Z0.5 F600
+G1 X18 Y20 F6000
+G92 E0
+G1 E5 F300              ; Prime blob
+G1 Y172 E9 F2000        ; Purge line 1
+G1 X18.5 F6000           ; Shift over
+G1 Y23 E9 F2000         ; Purge line 2
+G92 E0
+G1 E-0.8 F1800          ; Retract
+G1 Z2 F600              ; Lift
+
+{elsif is_extruder_used[1]}
+; ── T1 PURGE (right edge) ──
+T1
+G1 Z0.5 F600
+G1 X339 Y20 F6000
+G92 E0
+G1 E5 F300              ; Prime blob
+G1 Y172 E9 F2000        ; Purge line 1
+G1 X339.5 F6000         ; Shift over
+G1 Y23 E9 F2000         ; Purge line 2
+G92 E0
+G1 E-0.8 F1800          ; Retract
+G1 Z2 F600              ; Lift
+{endif}
+
+; ── Activate initial extruder and confirm temperature ──
+T{initial_extruder}
+M109 S{nozzle_temperature_initial_layer[initial_extruder]}
+G92 E0
+
+; ── READY TO PRINT ──

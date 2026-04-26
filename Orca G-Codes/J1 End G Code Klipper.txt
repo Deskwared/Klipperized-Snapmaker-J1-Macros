@@ -1,0 +1,6 @@
+;Paste below into Printer Settings → Machine G-code → Machine end G-code
+
+; ─────────────────────────────────────────────────────────────
+; Snapmaker J1s IDEX — Print Complete
+; ─────────────────────────────────────────────────────────────
+END_PRINT

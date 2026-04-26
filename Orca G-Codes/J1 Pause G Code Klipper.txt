@@ -1,0 +1,3 @@
+;Paste below into Printer Settings → Machine G-code → Pause G-code (should already be set)
+
+PAUSE
