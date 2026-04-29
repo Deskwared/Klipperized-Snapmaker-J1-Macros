@@ -1,6 +1,6 @@
 CAO: 28 April '26 @ 2000 USA Central Time.  (As improvements or changes are made, this repo will be routinely updated. Check for latest file releases prior to embarking on a test/implmentation)
 
-- Optimized start_end_pause functions.  Worked a bit on filament runout, but this needs continued effort to be fully functional.
+- Optimized start_end_pause functions.  Worked a bit on filament runout, but this needs continued effort to be fully functional. Added and tested autotune_TMC file/function (will require loading proper firmware if other users also want to implement it.)
   - Other known improvements or things in need of work:
        - Increase travel speed for "Resume" when returning to print location
        - Heat both extruders simultaneously when preparing in copy/mirror modes
