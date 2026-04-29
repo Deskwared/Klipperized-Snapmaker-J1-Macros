@@ -2,10 +2,8 @@ CAO: 28 April '26 @ 2000 USA Central Time.  (As improvements or changes are made
 
 - Optimized start_end_pause functions.  Worked a bit on filament runout, but this needs continued effort to be fully functional. Added and tested autotune_TMC file/function (will require loading proper firmware if other users also want to implement it.)
   - Other known improvements or things in need of work:
-       - Increase travel speed for "Resume" when returning to print location
-       - Heat both extruders simultaneously when preparing in copy/mirror modes
        - Filament runout only works on T0 in copy/mirror modes
-       - ID'd some odd, intermittent behavior occasionally driving multi-second delays between prime line completion and print start in all modes. Seems to present at random.
+       - ID'd some odd, intermittent behavior occasionally driving multi-second delays between prime line completion and print start in all modes. Seems to present at random, but I think it is related to heating behavior.
        - *Optional* Increase park speed during cancels
          
 - Optimized many macros and fixed some buggy functionality.
