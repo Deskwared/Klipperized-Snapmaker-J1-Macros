@@ -1,5 +1,13 @@
-CAO: 26 April '26 @ 1300 USA Central Time.  (As improvements or changes are made, this repo will be routinely updated. Check for latest file releases prior to embarking on a test/implmentation)
+CAO: 28 April '26 @ 2000 USA Central Time.  (As improvements or changes are made, this repo will be routinely updated. Check for latest file releases prior to embarking on a test/implmentation)
 
+- Optimized start_end_pause functions.  Worked a bit on filament runout, but this needs continued effort to be fully functional.
+  - Other known improvements or things in need of work:
+       - Increase travel speed for "Resume" when returning to print location
+       - Heat both extruders simultaneously when preparing in copy/mirror modes
+       - Filament runout only works on T0 in copy/mirror modes
+       - ID'd some odd, intermittent behavior occasionally driving multi-second delays between prime line completion and print start in all modes. Seems to present at random.
+       - *Optional* Increase park speed during cancels
+         
 - Optimized many macros and fixed some buggy functionality.
 - Pause/start/resume/cancel appear to be working correctly.
 - Added Orca (SnOrca) g-code files and instructions.
