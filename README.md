@@ -1,8 +1,11 @@
-CAO: 28 April '26 @ 2000 USA Central Time.  (As improvements or changes are made, this repo will be routinely updated. Check for latest file releases prior to embarking on a test/implmentation)
+CAO: 30 April '26 @ 1600 USA Central Time.  (As improvements or changes are made, this repo will be routinely updated. Check for latest file releases prior to embarking on a test/implmentation)
+
+- Optimized heating behavior during print starts.
+- Optimized load and unload functionality.  Added suite of load and unload options under revised "Filament" menu.  Modified KlipperScreen file to incorporate.
 
 - Optimized start_end_pause functions.  Worked a bit on filament runout, but this needs continued effort to be fully functional. Added and tested autotune_TMC file/function (will require loading proper firmware if other users also want to implement it.)
   - Other known improvements or things in need of work:
-       - Filament runout only works on T0 in copy/mirror modes
+       - Filament runout ready for beta testing. Still get some false positives, likely due to short loop duration.
        - ID'd some odd, intermittent behavior occasionally driving multi-second delays between prime line completion and print start in all modes. Seems to present at random, but I think it is related to heating behavior.
        - *Optional* Increase park speed during cancels
          
