@@ -1,5 +1,8 @@
-CAO: 30 April '26 @ 1600 USA Central Time.  (As improvements or changes are made, this repo will be routinely updated. Check for latest file releases prior to embarking on a test/implmentation)
+CAO: 1 May '26 @ 1700 USA Central Time.  (As improvements or changes are made, this repo will be routinely updated. Check for latest file releases prior to embarking on a test/implmentation)
 
+- Full upload of all .cfg files, incorporating numerous, minor optimizations and revisions that enhance user expirience, safety and/or performance, but should not have significant impact on previously established behaviors.
+
+*Previous Changelog*
 - Optimized heating behavior during print starts.
 - Optimized load and unload functionality.  Added suite of load and unload options under revised "Filament" menu.  Modified KlipperScreen file to incorporate.
 
