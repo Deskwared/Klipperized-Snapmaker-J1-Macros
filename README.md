@@ -1,8 +1,9 @@
-CAO: 1 May '26 @ 1700 USA Central Time.  (As improvements or changes are made, this repo will be routinely updated. Check for latest file releases prior to embarking on a test/implmentation)
+CAO: 13 Jun '26 @ 0800 USA Central Time.  (As improvements or changes are made, this repo will be routinely updated. Check for latest file releases prior to embarking on a test/implmentation.)  Recommend replacing all updated .cfgs and the KlipperScreen file with the newest versions or risk encountering errors.
 
-- Full upload of all .cfg files, incorporating numerous, minor optimizations and revisions that enhance user expirience, safety and/or performance, but should not have significant impact on previously established behaviors.
+- Additional optimizations and improvements.  Changed filament loading and unloading behavior to move print heads to middle of bed.  You can change the coordinates for your own preferences by editing the applicable lines in the .cfg.  Fixed a few issues with park behavior, relating to nozzle temperature and fan behavior.
 
 *Previous Changelog*
+- Full upload of all .cfg files, incorporating numerous, minor optimizations and revisions that enhance user expirience, safety and/or performance, but should not have significant impact on previously established behaviors.
 - Optimized heating behavior during print starts.
 - Optimized load and unload functionality.  Added suite of load and unload options under revised "Filament" menu.  Modified KlipperScreen file to incorporate.
 
